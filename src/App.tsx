@@ -7,7 +7,7 @@ import { Dashboard } from './pages/Dashboard';
 import { SkillsManagement } from './pages/SkillsManagement';
 import { SkillProfile } from './pages/SkillProfile';
 import { SkillDiscovery } from './pages/SkillDiscovery';
-import DevopsDayWise from './pages/DevopsDayWise';
+import DevopsDayWise from './pages/DevopsDaywise';
 import FullStackTestingDaywise from './pages/FullStackTestingDaywise';
 import Courses from './pages/Courses';
 import About from './pages/About';
