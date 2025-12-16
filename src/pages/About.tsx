@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import Logo from '../assets/logo.jpg';
 import './About.css';
 
 const About = () => {
@@ -21,14 +23,18 @@ const About = () => {
     <>
       <div className="skillup-about">
         <nav className="nav-bar">
+
           <div className="nav-container">
-            <a 
-              href="#home" 
-              className="nav-brand" 
-              onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}
-            >
-              SkillUp
-            </a>
+             <img
+                src={Logo}
+                alt="Sparcminds logo"
+                className="h-10 w-10 rounded-lg"
+              />
+            <Link to="/" className="nav-brand">
+              <span className="text-white font-bold text-[18px] tracking-wider">
+                    Skillup.SPARCMINDS
+                  </span>
+            </Link>
 
             <button className="nav-toggle" onClick={toggleMenu} aria-label="Toggle menu">
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -37,14 +43,12 @@ const About = () => {
             <div className={`nav-menu ${isMenuOpen ? 'nav-menu-open' : ''}`}>
               <a href="#about-us" onClick={(e) => { e.preventDefault(); scrollToSection('about-us'); }}>About Us</a>
               <a href="#mission" onClick={(e) => { e.preventDefault(); scrollToSection('mission'); }}>Mission</a>
-              <a href="#what-we-do" onClick={(e) => { e.preventDefault(); scrollToSection('what-we-do'); }}>What We Do</a>
-              <a href="#team" onClick={(e) => { e.preventDefault(); scrollToSection('team'); }}>Team</a>
               <a href="#faqs" onClick={(e) => { e.preventDefault(); scrollToSection('faqs'); }}>FAQs</a>
+              <Link to="/">Back to Home</Link>
             </div>
           </div>
         </nav>
 
-        {/* HOME SECTION */}
         <section id="home" className="hero-section">
           <div className="container">
             <div className="hero-content">
@@ -59,16 +63,15 @@ const About = () => {
           </div>
         </section>
 
-        {/* ABOUT US */}
         <section id="about-us" className="section section-light">
           <div className="container">
             <h2 className="section-title">About Us</h2>
             <div className="content-wrapper">
               <p className="text-large">
-                SkillUp by SparcMinds Edu-Tech is an innovative learning platform...
+                SkillUp by SparcMinds Edu-Tech is an innovative learning platform designed to bridge the gap between academic knowledge and real-world industry requirements. We focus on transforming students into industry-ready professionals through comprehensive skill development programs, mentorship, and hands-on training.
               </p>
               <p className="text-large">
-                Our platform is built for students who want to grow beyond theory...
+                Our platform is built for students who want to grow beyond theory and gain practical expertise that employers value. We provide structured learning paths, professional guidance, and continuous support to ensure every student achieves their career goals.
               </p>
 
               <div className="highlight-box">
@@ -80,68 +83,89 @@ const About = () => {
           </div>
         </section>
 
-        {/* MISSION SECTION */}
         <section id="mission" className="section section-dark">
           <div className="container">
             <h2 className="section-title">Our Mission</h2>
             <p className="section-intro">
-              Our mission is to empower students with real-world skills...
+              Our mission is to empower students with real-world skills, professional mentorship, and career opportunities that transform their futures. We are committed to making quality education accessible and affordable for everyone.
             </p>
 
             <div className="grid grid-4">
-              <div className="card"><h3>Structured Skill Development</h3><p>Intensive foundational & advanced programs</p></div>
-              <div className="card"><h3>Mentorship from Professionals</h3><p>Guidance from working professionals</p></div>
-              <div className="card"><h3>Placement Support</h3><p>Continuous support until selection</p></div>
-              <div className="card"><h3>Affordable & Quality</h3><p>Accessible prices</p></div>
+              <div className="card">
+                <h3>Structured Skill Development</h3>
+                <p>Intensive foundational and advanced programs designed for real-world application</p>
+              </div>
+              <div className="card">
+                <h3>Mentorship from Professionals</h3>
+                <p>Get guidance from experienced working professionals in your field</p>
+              </div>
+              <div className="card">
+                <h3>Placement Support</h3>
+                <p>Continuous career support and job assistance until you land your dream role</p>
+              </div>
+              <div className="card">
+                <h3>Affordable & Quality</h3>
+                <p>High-quality education at accessible prices for all students</p>
+              </div>
             </div>
 
             <div className="mission-statement">
-              <p>We believe every student deserves a chance...</p>
+              <p>We believe every student deserves a chance to build a successful career. Through our platform, we are creating opportunities for thousands of students to achieve their professional dreams and make a meaningful impact in their industries.</p>
             </div>
           </div>
         </section>
 
-        {/* FAQ SECTION */}
         <section id="faqs" className="section section-light">
           <div className="container">
             <h2 className="section-title">Frequently Asked Questions</h2>
 
             <div className="faq-container">
-
-              {/* FAQ 1 */}
               <div className="faq-item">
-                <button 
-                  className={`faq-question ${openFaq === 0 ? 'active' : ''}`} 
+                <button
+                  className={`faq-question ${openFaq === 0 ? 'active' : ''}`}
                   onClick={() => toggleFaq(0)}
                 >
-                  <span>Who can join SkillUp?</span>
+                  <span>Who can join SparcMinds EduTech?</span>
                   <ChevronDown className={`faq-icon ${openFaq === 0 ? 'rotate' : ''}`} />
                 </button>
 
                 <div className={`faq-answer ${openFaq === 0 ? 'open' : ''}`}>
-                  <p>Any student or fresher aiming to build a tech career...</p>
+                  <p>Any student or fresher aiming to build a tech career can join SkillUp. Whether you're a college student, recent graduate, or someone looking to switch careers, our programs are designed to help you succeed.</p>
                 </div>
               </div>
 
-              {/* FAQ 2 */}
+<div className="faq-item">
+        <button
+          className={`faq-question ${openFaq === 0 ? 'active' : ''}`}
+          onClick={() => toggleFaq(0)}
+        >
+          <span>What is the duration of your courses?</span>
+          <ChevronDown className={`faq-icon ${openFaq === 0 ? 'rotate' : ''}`} />
+        </button>
+
+        <div className={`faq-answer ${openFaq === 0 ? 'open' : ''}`}>
+          <p>
+            Our course durations typically range from 8 to 12 weeks, depending on the learning track. For example, Java Full Stack programs span around 90+ hours, Salesforce courses are approximately 40+ hours, and AI/Data Analytic programs extend beyond 100+ hours.
+          </p>
+        </div>
+      </div>
               <div className="faq-item">
-                <button 
-                  className={`faq-question ${openFaq === 1 ? 'active' : ''}`} 
+                <button
+                  className={`faq-question ${openFaq === 1 ? 'active' : ''}`}
                   onClick={() => toggleFaq(1)}
                 >
-                  <span>Do you provide certificates?</span>
+                  <span>Will I get a certificate after completing the course?</span>
                   <ChevronDown className={`faq-icon ${openFaq === 1 ? 'rotate' : ''}`} />
                 </button>
 
                 <div className={`faq-answer ${openFaq === 1 ? 'open' : ''}`}>
-                  <p>Yes—students receive certification after course completion...</p>
+                  <p>Yes, You will receive a verifiable course completion certificate from SPARCMINDS EDU-TECH after successfully completing the program. This certificate can be showcased on your resume and LinkedIn profile</p>
                 </div>
               </div>
 
-              {/* FAQ 3 */}
               <div className="faq-item">
-                <button 
-                  className={`faq-question ${openFaq === 2 ? 'active' : ''}`} 
+                <button
+                  className={`faq-question ${openFaq === 2 ? 'active' : ''}`}
                   onClick={() => toggleFaq(2)}
                 >
                   <span>Do you guarantee placement?</span>
@@ -149,14 +173,13 @@ const About = () => {
                 </button>
 
                 <div className={`faq-answer ${openFaq === 2 ? 'open' : ''}`}>
-                  <p>We provide continuous support and job assistance...</p>
+                  <p>We provide continuous placement support and job assistance to all our students. While we cannot guarantee placement, our dedicated team works closely with you, providing interview preparation, resume building, and connecting you with hiring partners until you secure your desired role.</p>
                 </div>
               </div>
 
-              {/* FAQ 4 */}
               <div className="faq-item">
-                <button 
-                  className={`faq-question ${openFaq === 3 ? 'active' : ''}`} 
+                <button
+                  className={`faq-question ${openFaq === 3 ? 'active' : ''}`}
                   onClick={() => toggleFaq(3)}
                 >
                   <span>Are classes online or offline?</span>
@@ -164,20 +187,17 @@ const About = () => {
                 </button>
 
                 <div className={`faq-answer ${openFaq === 3 ? 'open' : ''}`}>
-                  <p>SkillUp uses a structured hybrid model...</p>
+                  <p>SkillUp uses a structured hybrid model that combines the best of both online and offline learning. You get the flexibility of online classes with the option for in-person sessions and workshops to ensure comprehensive learning.</p>
                 </div>
               </div>
-
             </div>
           </div>
         </section>
       </div>
 
-      {/* FOOTER */}
       <footer className="footer">
         <div className="container">
           <div className="footer-content">
-
             <div className="footer-column">
               <h5>SkillUp</h5>
               <p>Transforming students into industry-ready professionals.</p>
@@ -187,15 +207,15 @@ const About = () => {
               <h5>Quick Links</h5>
               <ul>
                 <li><a href="#about-us">About Us</a></li>
-                <li><a href="#what-we-do">What We Do</a></li>
-                <li><a href="#team">Team</a></li>
+                <li><a href="#mission">Mission</a></li>
                 <li><a href="#faqs">FAQs</a></li>
+                <li><Link to="/">Home</Link></li>
               </ul>
             </div>
 
             <div className="footer-column">
               <h5>Contact</h5>
-              <p>Email: info@skillup.com<br />Phone: +91 XXXXXXXXXX</p>
+              <p>Email: info@sparcminds.com<br />Phone: +91 7997486159</p>
             </div>
           </div>
 

@@ -1,0 +1,329 @@
+.roadmapSection {
+  background-color: white;
+  padding: 80px 20px;
+  position: relative;
+  /* overflow: hidden; */
+  overflow: visible;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.025em;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: #6B7280;
+  margin: 0;
+  font-weight: 400;
+}
+
+.roadmapWrapper {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  display: block;
+overflow: visible;
+
+}
+
+.roadPath {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.dashedLine {
+  opacity: 0.4;
+}
+
+.milestonesContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.milestoneWrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+}
+
+.milestone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.milestoneHovered {
+  transform: scale(1.1);
+}
+
+.pinOuter {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 4px solid;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.milestoneHovered .pinOuter {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.pinInner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.pinNumber {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.pinPoint {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 12px solid;
+  margin-top: -2px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.visibleLabel {
+  position: absolute;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.visibleLabelAbove {
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.visibleTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.milestoneContent {
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  z-index: 10;
+}
+
+.milestoneWrapper:hover .milestoneContent {
+  opacity: 1;
+  transform: translateX(-50%) translateY(8px);
+  pointer-events: auto;
+}
+
+.milestoneTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+.milestoneDescription {
+  font-size: 0.875rem;
+  color: #6B7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.mobileTimeline {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .roadmapWrapper {
+    display: none;
+  }
+
+  .mobileTimeline {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+    padding-left: 40px;
+  }
+
+  .mobileTimeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 24px;
+    bottom: 24px;
+    width: 3px;
+    background: linear-gradient(to bottom, #3B82F6, #8B5CF6, #EC4899, #F59E0B, #10B981);
+    border-radius: 2px;
+  }
+
+  .mobileCard {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .mobileCard:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateX(4px);
+  }
+
+  .mobileCardHeader {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
+  .mobilePin {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .mobilePinNumber {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .mobileTitle {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .mobileDescription {
+    font-size: 0.9375rem;
+    color: #6B7280;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .roadmapSection {
+    padding: 60px 16px;
+  }
+
+  .header {
+    margin-bottom: 48px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .mobileTimeline {
+    padding-left: 32px;
+  }
+
+  .mobileTimeline::before {
+    left: 16px;
+  }
+
+  .mobileCard {
+    padding: 20px;
+  }
+
+  .mobilePin {
+    width: 42px;
+    height: 42px;
+  }
+
+  .mobilePinNumber {
+    font-size: 1.125rem;
+  }
+
+  .mobileTitle {
+    font-size: 1rem;
+  }
+
+  .mobileDescription {
+    font-size: 0.875rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .milestone,
+  .pinOuter,
+  .pinInner,
+  .milestoneContent,
+  .mobileCard {
+    transition: none;
+  }
+}

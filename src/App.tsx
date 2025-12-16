@@ -7,9 +7,14 @@ import { Dashboard } from './pages/Dashboard';
 import { SkillsManagement } from './pages/SkillsManagement';
 import { SkillProfile } from './pages/SkillProfile';
 import { SkillDiscovery } from './pages/SkillDiscovery';
-import DayWise from './pages/Daywise';
+import DevopsDayWise from './pages/DevopsDayWise';
+import FullStackTestingDaywise from './pages/FullStackTestingDaywise';
 import Courses from './pages/Courses';
 import About from './pages/About';
+import LearnMore from './pages/LearnMore';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsAndConditions from './pages/TermsAndConditions'; // If you have this
+import ForgotPassword from './pages/ForgotPassword';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -39,7 +44,13 @@ function App() {
           <Route path="/discover-skills" element={<SkillDiscovery />} />
           <Route path='/about-us' element={<About/>}/>
           <Route path="/courses" element={<Courses/>} />
-          <Route path="/one" element={<DayWise/>} />
+          <Route path="/learn-more" element={<LearnMore/>} />
+          <Route path="/devops-daywise" element={<DevopsDayWise/>} />
+          <Route path="/fullstack-testing-daywise" element={<FullStackTestingDaywise/>} />
+          <Route path="/one" element={<DevopsDayWise/>} />
+          <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="/TermsAndConditions" element={<TermsAndConditions />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
        
           <Route

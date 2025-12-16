@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Search, Play, Check, ChevronRight, Menu, ChevronDown, Lock } from 'lucide-react';
+import { Search, Play, Check, ChevronRight, Menu, ChevronDown, Lock, X } from 'lucide-react';
+import Logo from '../assets/logo.jpg';
 import { createClient } from '@supabase/supabase-js';
+import { useNavigate } from 'react-router-dom';
 
 const supabase = createClient(
   "https://dummy-project.supabase.co", // dummy URL
@@ -146,30 +148,30 @@ function Sidebar({ days, selectedDay, onSelect, completedDays }: SidebarProps) {
   const progressPercentage = Math.round((completedDays / totalDays) * 100);
 
   return (
-    <aside className="w-80 bg-gradient-to-b from-[#0a1929] to-[#0d2438] flex flex-col border-r border-gray-700">
-      <div className="p-6 border-b border-gray-700 flex-shrink-0 bg-gradient-to-br from-[#0a1929] to-[#0d2438]">
-        <h2 className="text-white font-bold text-xl mb-1 tracking-tight">SparcMinds</h2>
-        <p className="text-gray-400 text-xs mb-4 font-medium">DevOps Mastery Program</p>
-        <p className="text-gray-200 text-sm font-semibold mb-2">{completedDays} of {totalDays} Complete ({progressPercentage}%)</p>
-        <div className="w-full bg-gray-800 rounded-full h-2.5 overflow-hidden shadow-inner border border-gray-700">
-          <div className="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full transition-all duration-500" style={{ width: `${progressPercentage}%` }}></div>
+    <>
+    <aside className="w-80 bg-black flex flex-col border-r border-yellow-600">
+      <div className="p-6 border-b border-yellow-600 flex-shrink-0 bg-black">
+        <h2 className="text-yellow-400 font-bold text-xl mb-1 tracking-tight">DevOps Mastery Program</h2>
+        <p className="text-white text-sm font-semibold mb-2">{completedDays} of {totalDays} Complete ({progressPercentage}%)</p>
+          <div className="w-full bg-gray-800 rounded-full h-2.5 overflow-hidden shadow-inner border border-yellow-600">
+          <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 h-full rounded-full transition-all duration-500" style={{ width: `${progressPercentage}%` }}></div>
         </div>
-        <p className="text-gray-500 text-xs mt-3 leading-relaxed">Progress updates instantly.</p>
+        <p className="text-yellow-300 text-xs mt-3 leading-relaxed">Progress updates instantly.</p>
       </div>
 
       <div className="flex-1 overflow-y-auto overflow-x-hidden flex flex-col">
-        <div className="border-b border-gray-700 flex-shrink-0">
+        <div className="border-b border-yellow-600 flex-shrink-0">
           <button
             onClick={() => setShowDays(!showDays)}
             className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-800/50 transition-colors text-left"
           >
             <span className="text-gray-200 font-semibold text-sm">Day-wise Curriculum</span>
-            <ChevronDown size={18} className={`text-gray-400 transition-transform duration-300 ${showDays ? 'rotate-0' : '-rotate-90'}`} />
+            <ChevronDown size={18} className={`text-yellow-300 transition-transform duration-300 ${showDays ? 'rotate-0' : '-rotate-90'}`} />
           </button>
         </div>
 
         {showDays && (
-          <div className="flex-1 overflow-y-auto overflow-x-hidden bg-gray-900/50">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden bg-black/60">
             {days.map((item) => (
               <button
                 key={item.day}
@@ -180,12 +182,12 @@ function Sidebar({ days, selectedDay, onSelect, completedDays }: SidebarProps) {
               >
                 <div className="flex items-center gap-2 min-w-0">
                   <Play size={14} className={`transition-all flex-shrink-0 ${
-                    item.day === selectedDay.day ? 'text-white' : 'text-gray-500 group-hover:text-gray-300'
+                    item.day === selectedDay.day ? 'text-yellow-400' : 'text-gray-500 group-hover:text-yellow-300'
                   }`} />
                   <div className="min-w-0">
                     <div className="font-semibold">Day {item.day}</div>
                     <div className={`line-clamp-1 truncate text-xs ${
-                      item.day === selectedDay.day ? 'text-blue-100' : 'text-gray-400'
+                      item.day === selectedDay.day ? 'text-yellow-200' : 'text-gray-400'
                     }`}>{item.title}</div>
                   </div>
                 </div>
@@ -196,14 +198,15 @@ function Sidebar({ days, selectedDay, onSelect, completedDays }: SidebarProps) {
 
         {!showDays && (
           <div className="flex-1 overflow-y-auto overflow-x-hidden">
-            {sidebarSections.map((section, idx) => (
-              <CollapsibleSection key={idx} title={section.title} items={section.items} />
-            ))}
-          </div>
+              {sidebarSections.map((section, idx) => (
+                <CollapsibleSection key={idx} title={section.title} items={section.items} />
+              ))}
+            </div>
         )}
       </div>
 
     </aside>
+    </>
   );
 }
 
@@ -211,9 +214,10 @@ interface CourseContentProps {
   selectedDay: { day: number; title: string };
   onMarkComplete: (day: number) => Promise<void>;
   completedDays: Set<number>;
+  onOpenVideo?: () => void;
 }
 
-function CourseContent({ selectedDay, onMarkComplete, completedDays }: CourseContentProps) {
+function CourseContent({ selectedDay, onMarkComplete, completedDays, onOpenVideo }: CourseContentProps) {
   const [isLoading, setIsLoading] = useState(false);
   const isCompleted = completedDays.has(selectedDay.day);
 
@@ -233,47 +237,27 @@ function CourseContent({ selectedDay, onMarkComplete, completedDays }: CourseCon
           <h1 className="text-3xl font-bold text-gray-900 mb-2">{selectedDay.title}</h1>
         </header>
 
-        <div className="bg-gray-900 rounded-lg aspect-video flex items-center justify-center mb-6 relative group cursor-pointer">
+        <button onClick={() => onOpenVideo && onOpenVideo()} className="bg-gray-900 rounded-lg aspect-video mb-6 relative group cursor-pointer w-full">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-cyan-600/20 rounded-lg"></div>
-          <div className="relative z-10 text-center">
-            <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-white transition-colors">
-              <Play size={32} className="text-gray-900 ml-1" fill="currentColor" />
+          <div className="relative z-10 text-center flex flex-col items-center justify-center h-full p-4">
+            <div className="w-16 h-16 md:w-20 md:h-20 bg-white/90 rounded-full flex items-center justify-center mx-auto group-hover:bg-white transition-colors">
+              <Play size={36} className="text-gray-900 ml-1" fill="currentColor" />
             </div>
-            <p className="text-white text-lg font-medium">Video for Day {selectedDay.day}</p>
+            <p className="text-white text-lg font-medium mt-3">Video for Day {selectedDay.day}</p>
             <p className="text-gray-300 text-sm mt-1">(Click to play)</p>
           </div>
-        </div>
+        </button>
 
         <p className="text-gray-700 leading-relaxed mb-6">
           In this lesson you will understand <strong>{selectedDay.title}</strong>. Focus on the core concepts, note
           down commands and diagrams, and try the given exercises.
         </p>
 
-        <div className="bg-gray-50 rounded-lg p-6 mb-6">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Key Topics</h3>
-          <ul className="space-y-2 text-gray-700">
-            <li className="flex items-start">
-              <ChevronRight size={20} className="text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
-              <span>Concept overview and real-time use cases</span>
-            </li>
-            <li className="flex items-start">
-              <ChevronRight size={20} className="text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
-              <span>Important commands / tools for this day</span>
-            </li>
-            <li className="flex items-start">
-              <ChevronRight size={20} className="text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
-              <span>Common mistakes and interview points</span>
-            </li>
-            <li className="flex items-start">
-              <ChevronRight size={20} className="text-blue-600 mr-2 mt-0.5 flex-shrink-0" />
-              <span>Hands-on mini task to practice</span>
-            </li>
-          </ul>
-        </div>
+      
 
-        <div className="border-2 border-emerald-200 rounded-lg p-6 bg-emerald-50">
-          <h3 className="text-xl font-semibold text-gray-900 mb-3">Lesson Progress</h3>
-          <p className="text-gray-700 mb-4">
+        <div className="border-2 border-yellow-300 rounded-lg p-6 bg-black text-yellow-100">
+          <h3 className="text-xl font-semibold text-yellow-300 mb-3">Lesson Progress</h3>
+          <p className="text-yellow-200 mb-4">
             Mark this day as completed to track your progress in the DevOps Mastery Program.
           </p>
           <button
@@ -281,8 +265,8 @@ function CourseContent({ selectedDay, onMarkComplete, completedDays }: CourseCon
             disabled={isLoading}
             className={`px-6 py-2.5 rounded-lg font-medium flex items-center gap-2 transition-all duration-200 ${
               isCompleted
-                ? 'bg-emerald-600 text-white hover:bg-emerald-700'
-                : 'bg-emerald-600 text-white hover:bg-emerald-700'
+                ? 'bg-yellow-400 text-black hover:bg-yellow-500'
+                : 'bg-yellow-400 text-black hover:bg-yellow-500'
             } disabled:opacity-50 disabled:cursor-not-allowed`}
           >
             <Check size={18} />
@@ -295,13 +279,28 @@ function CourseContent({ selectedDay, onMarkComplete, completedDays }: CourseCon
 }
 
 function Daywise() {
+  const navigate = useNavigate();
   const [selectedDay, setSelectedDay] = useState(devopsDays[0]);
   const [completedDays, setCompletedDays] = useState<Set<number>>(new Set());
   const [isLoading, setIsLoading] = useState(true);
+  const [completedCount, setCompletedCount] = useState<number>(0);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [videoOpen, setVideoOpen] = useState(false);
 
   useEffect(() => {
     fetchProgress();
   }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setSidebarOpen(window.innerWidth >= 1024);
+    }
+  }, []);
+
+  // keep numeric count in sync for Sidebar rendering
+  useEffect(() => {
+    setCompletedCount(completedDays.size);
+  }, [completedDays]);
 
   const fetchProgress = async () => {
     try {
@@ -322,31 +321,57 @@ function Daywise() {
   };
 
   const handleMarkComplete = async (day: number) => {
-    try {
-      const isCompleted = completedDays.has(day);
+    // Optimistic UI update: update local state immediately, then persist.
+    const isCompleted = completedDays.has(day);
+    const newCompleted = new Set(completedDays);
+    console.log('handleMarkComplete start - day:', day, 'wasCompleted:', isCompleted, 'currentSize:', completedDays.size);
+    if (isCompleted) {
+      newCompleted.delete(day);
+      setCompletedDays(newCompleted);
+      console.log('optimistic remove set size:', newCompleted.size);
 
-      if (isCompleted) {
+      try {
         const { error } = await supabase
           .from('course_progress')
           .delete()
           .eq('day', day);
 
-        if (error) throw error;
-        const newCompleted = new Set(completedDays);
-        newCompleted.delete(day);
-        setCompletedDays(newCompleted);
-      } else {
+        if (error) {
+          // revert on error
+          const revert = new Set(newCompleted);
+          revert.add(day);
+          setCompletedDays(revert);
+          console.error('Error removing progress:', error);
+        }
+      } catch (err) {
+        const revert = new Set(newCompleted);
+        revert.add(day);
+        setCompletedDays(revert);
+        console.error('Error removing progress:', err);
+      }
+    } else {
+      newCompleted.add(day);
+      setCompletedDays(newCompleted);
+      console.log('optimistic add set size:', newCompleted.size);
+
+      try {
         const { error } = await supabase
           .from('course_progress')
           .upsert({ day, completed: true }, { onConflict: 'day' });
 
-        if (error) throw error;
-        const newCompleted = new Set(completedDays);
-        newCompleted.add(day);
-        setCompletedDays(newCompleted);
+        if (error) {
+          // revert on error
+          const revert = new Set(newCompleted);
+          revert.delete(day);
+          setCompletedDays(revert);
+          console.error('Error adding progress:', error);
+        }
+      } catch (err) {
+        const revert = new Set(newCompleted);
+        revert.delete(day);
+        setCompletedDays(revert);
+        console.error('Error adding progress:', err);
       }
-    } catch (error) {
-      console.error('Error updating progress:', error);
     }
   };
 
@@ -363,38 +388,78 @@ function Daywise() {
 
   return (
     <div className="h-screen flex flex-col bg-gray-50">
-      <header className="bg-[#0a1929] text-white h-14 flex items-center px-6 flex-shrink-0">
-        <div className="flex items-center gap-4 flex-1">
-          <button className="text-gray-400 hover:text-white transition-colors lg:hidden">
+      <header className="bg-black py-4 text-white flex items-center px-6 flex-shrink-0 border-b border-yellow-600">
+        <div className="flex items-center gap-3 flex-1">
+          <button onClick={() => setSidebarOpen(s => !s)} className="text-gray-400 hover:text-white transition-colors lg:hidden">
             <Menu size={24} />
           </button>
-          <span className="text-xl font-bold">SparcMinds</span>
+          <div className="flex items-center gap-2">
+            <img src={Logo} alt="Sparcminds logo" className="h-10 w-10 rounded-lg" />
+            <div className="flex flex-col leading-tight">
+              <span className="text-white font-bold text-[17px] tracking-wider">
+                Skillup.SPARCMINDS
+              </span>
+              <span className="text-white text-[10px] opacity-80">
+                Building Trust & Careers
+              </span>
+            </div>
+          </div>
         </div>
         <div className="flex-1 max-w-2xl mx-8 hidden md:block">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-300" size={18} />
             <input
               type="text"
               placeholder="What do you want to learn?"
-              className="w-full bg-white text-gray-900 pl-10 pr-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className="w-full bg-white text-gray-900 pl-10 pr-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
             />
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <select className="bg-transparent border border-gray-600 rounded px-3 py-1 text-sm focus:outline-none focus:border-cyan-400">
-            <option value="EN">EN</option>
-            <option value="HI">HI</option>
-          </select>
-          <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center font-semibold text-sm">
-            K
+          <button onClick={() => navigate('/')} className="hidden sm:inline-block text-white hover:text-yellow-400 transition font-semibold">
+            Home
+          </button>
+          <button
+            onClick={() => navigate('/courses')}
+            className="hidden sm:inline-block bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-500 transition"
+          >
+            Back to Courses
+          </button>
+          <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center font-semibold text-sm text-black">
+            U
           </div>
         </div>
       </header>
 
-      <div className="flex flex-1 overflow-hidden">
-        <Sidebar days={devopsDays} selectedDay={selectedDay} onSelect={setSelectedDay} completedDays={completedDays.size} />
-        <CourseContent selectedDay={selectedDay} onMarkComplete={handleMarkComplete} completedDays={completedDays} />
+      <div className="flex flex-1 min-h-0">
+        <div className={`${sidebarOpen ? 'block' : 'hidden'} lg:block min-h-0`}> 
+          <Sidebar key={completedCount} days={devopsDays} selectedDay={selectedDay} onSelect={(d)=>{ setSelectedDay(d); if (typeof window !== 'undefined' && window.innerWidth < 1024) setSidebarOpen(false); }} completedDays={completedCount} />
+        </div>
+        <div className="flex-1 min-w-0 min-h-0">
+          <CourseContent selectedDay={selectedDay} onMarkComplete={handleMarkComplete} completedDays={completedDays} onOpenVideo={() => setVideoOpen(true)} />
+        </div>
       </div>
+
+      {videoOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+          <div className="w-full max-w-5xl bg-white rounded-lg overflow-hidden">
+            <div className="p-3 flex justify-end">
+              <button onClick={() => setVideoOpen(false)} className="text-gray-700 px-2 py-1">Close</button>
+            </div>
+            <div className="p-4">
+              <video
+                controls
+                playsInline
+                // @ts-ignore - iOS attribute
+                webkit-playsinline
+                className="w-full h-auto max-h-[85vh] bg-black"
+              >
+                <track kind="captions" />
+              </video>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
