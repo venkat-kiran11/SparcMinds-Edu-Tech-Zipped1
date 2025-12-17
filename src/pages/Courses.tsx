@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Menu, X, Clock } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faYoutube, faLinkedin, faTelegram } from "@fortawesome/free-brands-svg-icons";
 import Logo from '../assets/logo.jpg';
@@ -206,9 +206,9 @@ function Courses() {
             </div>
 
             <div className="hidden lg:flex flex-1 justify-center">
-              <button className="bg-[#f9b817] text-black  px-3 py-2   rounded-full font-semibold text-lg shadow-lg hover:bg-[#e0a615] transition">
+              <Link to="/request-callback" className="bg-[#f9b817] text-black px-3 py-2 rounded-full font-semibold text-lg shadow-lg hover:bg-[#e0a615] transition inline-flex items-center justify-center">
                 Request a Call Back
-              </button>
+              </Link>
             </div>
 
             <div className={`${isMenuOpen ? 'flex' : 'hidden'} lg:flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-8 w-full lg:w-auto mt-4 lg:mt-0 text-white font-semibold`}>
@@ -238,9 +238,9 @@ function Courses() {
             </div>
 
             <div className="w-full lg:hidden mt-2">
-              <button className="w-full max-w-[360px] mx-auto block bg-[#f9b817] text-black px-6 py-3 rounded-full font-semibold shadow-lg">
+              <Link to="/request-callback" className="w-full max-w-[360px] mx-auto block bg-[#f9b817] text-black px-6 py-3 rounded-full font-semibold shadow-lg text-center">
                 Request a Call Back
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -249,7 +249,7 @@ function Courses() {
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center text-white mb-12">
-            <h3 className="text-3xl font-bold mb-2">Popular Courses</h3>
+            <h3 className="text-3xl font-bold mb-2 " id='popular'>Popular Courses</h3>
             <p className="text-gray-300">Start learning with our most loved courses</p>
           </div>
 
@@ -288,7 +288,7 @@ function Courses() {
                           </span>
                         </div>
                         <button 
-                          onClick={() => course.id === 3 ? navigate('/learn-more') : course.id === 2 ? navigate('/fullstack-testing-daywise') : null}
+                          onClick={() => course.id === 1 ? navigate('/devops-daywise') : course.id === 3 ? navigate('/learn-more') : course.id === 2 ? navigate('/fullstack-testing-daywise') : null}
                           className="bg-[#f9b817] text-black  px-3 py-2  rounded-lg font-semibold hover:bg-[#e0a615] transition">
                           Learn More
                         </button>
@@ -460,7 +460,7 @@ function Courses() {
                   className="w-14 h-14 object-cover rounded-lg"
                 />
                 <div>
-                  <h5 className="text-xl font-bold">SPARCMINDS</h5>
+                  <h5 className="text-xl font-bold">Skillup.SPARCMINDS</h5>
                   <small className="text-sm text-gray-300">EDU-TECH</small>
                 </div>
               </div>
@@ -471,27 +471,85 @@ function Courses() {
               </p>
               <div className="flex gap-3">
                 <FontAwesomeIcon icon={faInstagram} size="2x" />
-               <FontAwesomeIcon icon={faYoutube} size="2x" />
-                <FontAwesomeIcon icon={faLinkedin} size="2x" />
+                <a
+                  href="https://youtube.com/@skillupsparcmindsedutech?si=jUFtNMRmpS064btF"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YouTube"
+                >
+                  <FontAwesomeIcon icon={faYoutube} size="2x" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/sparcmindsedutech/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                >
+                  <FontAwesomeIcon icon={faLinkedin} size="2x" />
+                </a>
                 <FontAwesomeIcon icon={faTelegram} size="2x" />
               </div>
             </div>
 
-            <div>
-              <h6 className="text-lg font-semibold text-[#FFD43B] mb-3">Our Popular Courses</h6>
-              <ul className="space-y-2 text-gray-400 text-sm">
-                <li>Java Full Stack Development</li>
-                <li>Cloud Computing with AI</li>
-                <li>Generative AI Advanced</li>
-                <li>Full Stack Testing</li>
-                <li>DevOps With AWS</li>
-                <li>Generative AI</li>
-                <li>Cyber Security</li>
-                <li>Data Analytics</li>
-                <li>Web Development</li>
-                <li>Data Science</li>
-              </ul>
-            </div>
+           <div>
+  <h6 className="text-lg font-semibold text-[#FFD43B] mb-3">
+    Our Popular Courses
+  </h6>
+
+  <ul className="space-y-2 text-gray-400 text-sm">
+    <li>
+      <a href="#popular" className="hover:text-[#f9b817] transition">
+        Java Full Stack Development
+      </a>
+    </li>
+    <li>
+      <a href="#popular" className="hover:text-[#f9b817] transition">
+        Cloud Computing with AI
+      </a>
+    </li>
+    <li>
+      <a href="#popular" className="hover:text-[#f9b817] transition">
+        Generative AI Advanced
+      </a>
+    </li>
+    <li>
+      <a href="#popular" className="hover:text-[#f9b817] transition">
+        Full Stack Testing
+      </a>
+    </li>
+    <li>
+      <a href="#popular" className="hover:text-[#f9b817] transition">
+        DevOps With AWS
+      </a>
+    </li>
+    <li>
+      <a href="#popular" className="hover:text-[#f9b817] transition">
+        Generative AI
+      </a>
+    </li>
+    <li>
+      <a href="#popular" className="hover:text-[#f9b817] transition">
+        Cyber Security
+      </a>
+    </li>
+    <li>
+      <a href="#popular" className="hover:text-[#f9b817] transition">
+        Data Analytics
+      </a>
+    </li>
+    <li>
+      <a href="#popular" className="hover:text-[#f9b817] transition">
+        Web Development
+      </a>
+    </li>
+    <li>
+      <a href="#popular" className="hover:text-[#f9b817] transition">
+        Data Science
+      </a>
+    </li>
+  </ul>
+</div>
+
 
             <div>
               <h6 className="text-lg font-semibold text-[#FFD43B] mb-3">Contact & Location</h6>
@@ -504,13 +562,13 @@ function Courses() {
                 ></iframe>
               </div>
               <p className="text-gray-400 text-sm mb-2">
-                Madhapur, Hyderabad Telangana
+                Madhapur, Hyderabad Telangana, - 500081
               </p>
               <p className="text-gray-400 text-sm mb-1">
                 <strong>Call:</strong> +91- 79974 86159
               </p>
               <p className="text-gray-400 text-sm">
-                <strong>Email:</strong> support@frontlinesedutech.com
+                <strong>Email:</strong> skillup.sparcmindsedutech@gmail.com
               </p>
             </div>
           </div>

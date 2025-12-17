@@ -14,7 +14,10 @@ import About from './pages/About';
 import LearnMore from './pages/LearnMore';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions'; // If you have this
+import RequestCallback from './pages/RequestCallback';
 import ForgotPassword from './pages/ForgotPassword';
+import StudentProfile from './pages/StudentProfile';
+import StudentProfilePage from './pages/StudentProfilePage';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -36,6 +39,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 function App() {
   return (
     <BrowserRouter>
+
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -44,7 +48,9 @@ function App() {
           <Route path="/discover-skills" element={<SkillDiscovery />} />
           <Route path='/about-us' element={<About/>}/>
           <Route path="/courses" element={<Courses/>} />
+          <Route path="/studentprofile" element={<StudentProfilePage/>} />
           <Route path="/learn-more" element={<LearnMore/>} />
+          <Route path="/request-callback" element={<RequestCallback/>} />
           <Route path="/devops-daywise" element={<DevopsDayWise/>} />
           <Route path="/fullstack-testing-daywise" element={<FullStackTestingDaywise/>} />
           <Route path="/one" element={<DevopsDayWise/>} />

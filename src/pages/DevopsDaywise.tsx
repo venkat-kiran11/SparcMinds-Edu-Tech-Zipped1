@@ -70,17 +70,10 @@ interface SidebarProps {
   selectedDay: { day: number; title: string };
   onSelect: (day: { day: number; title: string }) => void;
   completedDays: number;
+  onOpenQuiz: (day: { day: number; title: string }) => void;
 }
 
 const sidebarSections = [
-  {
-    title: "Course Content",
-    items: [
-      { label: "Video Lectures", count: 54, locked: false },
-      { label: "Reading Materials", count: 42, locked: false },
-      { label: "Code Snippets", count: 128, locked: false }
-    ]
-  },
   {
     title: "Learning Resources",
     items: [
@@ -142,14 +135,14 @@ function CollapsibleSection({ title, items }: CollapsibleSectionProps) {
   );
 }
 
-function Sidebar({ days, selectedDay, onSelect, completedDays }: SidebarProps) {
+function Sidebar({ days, selectedDay, onSelect, completedDays, onOpenQuiz }: SidebarProps) {
   const [showDays, setShowDays] = useState(true);
   const totalDays = days.length;
   const progressPercentage = Math.round((completedDays / totalDays) * 100);
 
   return (
     <>
-    <aside className="w-80 bg-black flex flex-col border-r border-yellow-600">
+    <aside className="w-80 bg-black flex flex-col border-r border-yellow-600 h-full">
       <div className="p-6 border-b border-yellow-600 flex-shrink-0 bg-black">
         <h2 className="text-yellow-400 font-bold text-xl mb-1 tracking-tight">DevOps Mastery Program</h2>
         <p className="text-white text-sm font-semibold mb-2">{completedDays} of {totalDays} Complete ({progressPercentage}%)</p>
@@ -173,25 +166,34 @@ function Sidebar({ days, selectedDay, onSelect, completedDays }: SidebarProps) {
         {showDays && (
           <div className="flex-1 overflow-y-auto overflow-x-hidden bg-black/60">
             {days.map((item) => (
-              <button
-                key={item.day}
-                className={`w-full p-3 px-4 text-left hover:bg-gray-700 transition-all duration-200 text-xs border-b border-gray-800 group flex-shrink-0 ${
-                  item.day === selectedDay.day ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600' : 'text-gray-300 hover:text-white'
-                }`}
-                onClick={() => onSelect(item)}
-              >
-                <div className="flex items-center gap-2 min-w-0">
-                  <Play size={14} className={`transition-all flex-shrink-0 ${
-                    item.day === selectedDay.day ? 'text-yellow-400' : 'text-gray-500 group-hover:text-yellow-300'
-                  }`} />
-                  <div className="min-w-0">
-                    <div className="font-semibold">Day {item.day}</div>
-                    <div className={`line-clamp-1 truncate text-xs ${
-                      item.day === selectedDay.day ? 'text-yellow-200' : 'text-gray-400'
-                    }`}>{item.title}</div>
+              <div key={item.day} className="border-b border-gray-800">
+                <button
+                  className={`w-full p-3 px-4 text-left hover:bg-gray-700 transition-all duration-200 text-xs group flex items-center justify-between ${
+                    item.day === selectedDay.day ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600' : 'text-gray-300 hover:text-white'
+                  }`}
+                  onClick={() => onSelect(item)}
+                >
+                  <div className="flex items-center gap-2 min-w-0">
+                    <Play size={14} className={`transition-all flex-shrink-0 ${
+                      item.day === selectedDay.day ? 'text-yellow-400' : 'text-gray-500 group-hover:text-yellow-300'
+                    }`} />
+                    <div className="min-w-0">
+                      <div className="font-semibold">Day {item.day}</div>
+                      <div className={`line-clamp-1 truncate text-xs ${
+                        item.day === selectedDay.day ? 'text-yellow-200' : 'text-gray-400'
+                      }`}>{item.title}</div>
+                    </div>
                   </div>
-                </div>
-              </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={(e) => { e.stopPropagation(); onOpenQuiz(item); }}
+                      className="text-xs bg-yellow-400 text-black px-2 py-1 rounded-md font-semibold hover:bg-yellow-500"
+                    >
+                      Quiz
+                    </button>
+                  </div>
+                </button>
+              </div>
             ))}
           </div>
         )}
@@ -215,9 +217,10 @@ interface CourseContentProps {
   onMarkComplete: (day: number) => Promise<void>;
   completedDays: Set<number>;
   onOpenVideo?: () => void;
+  onOpenQuiz?: () => void;
 }
 
-function CourseContent({ selectedDay, onMarkComplete, completedDays, onOpenVideo }: CourseContentProps) {
+function CourseContent({ selectedDay, onMarkComplete, completedDays, onOpenVideo, onOpenQuiz }: CourseContentProps) {
   const [isLoading, setIsLoading] = useState(false);
   const isCompleted = completedDays.has(selectedDay.day);
 
@@ -272,6 +275,12 @@ function CourseContent({ selectedDay, onMarkComplete, completedDays, onOpenVideo
             <Check size={18} />
             {isLoading ? 'Saving...' : isCompleted ? 'Completed' : 'Mark as Completed'}
           </button>
+          <button
+            onClick={() => onOpenQuiz && onOpenQuiz()}
+            className="ml-4 px-4 py-2.5 rounded-lg font-medium bg-transparent border border-yellow-500 text-yellow-200 hover:bg-yellow-500 hover:text-black transition-colors"
+          >
+            Take Quiz
+          </button>
         </div>
       </div>
     </section>
@@ -286,6 +295,8 @@ function Daywise() {
   const [completedCount, setCompletedCount] = useState<number>(0);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [videoOpen, setVideoOpen] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false);
+  const [quizForDay, setQuizForDay] = useState<{ day: number; title: string } | null>(null);
 
   useEffect(() => {
     fetchProgress();
@@ -375,6 +386,16 @@ function Daywise() {
     }
   };
 
+  const openQuiz = (day: { day: number; title: string }) => {
+    setQuizForDay(day);
+    setQuizOpen(true);
+  };
+
+  const closeQuiz = () => {
+    setQuizOpen(false);
+    setQuizForDay(null);
+  };
+
   if (isLoading) {
     return (
       <div className="h-screen flex items-center justify-center bg-gray-50">
@@ -399,9 +420,7 @@ function Daywise() {
               <span className="text-white font-bold text-[17px] tracking-wider">
                 Skillup.SPARCMINDS
               </span>
-              <span className="text-white text-[10px] opacity-80">
-                Building Trust & Careers
-              </span>
+              
             </div>
           </div>
         </div>
@@ -433,10 +452,10 @@ function Daywise() {
 
       <div className="flex flex-1 min-h-0">
         <div className={`${sidebarOpen ? 'block' : 'hidden'} lg:block min-h-0`}> 
-          <Sidebar key={completedCount} days={devopsDays} selectedDay={selectedDay} onSelect={(d)=>{ setSelectedDay(d); if (typeof window !== 'undefined' && window.innerWidth < 1024) setSidebarOpen(false); }} completedDays={completedCount} />
+          <Sidebar key={completedCount} days={devopsDays} selectedDay={selectedDay} onSelect={(d)=>{ setSelectedDay(d); if (typeof window !== 'undefined' && window.innerWidth < 1024) setSidebarOpen(false); }} completedDays={completedCount} onOpenQuiz={(d)=>openQuiz(d)} />
         </div>
         <div className="flex-1 min-w-0 min-h-0">
-          <CourseContent selectedDay={selectedDay} onMarkComplete={handleMarkComplete} completedDays={completedDays} onOpenVideo={() => setVideoOpen(true)} />
+          <CourseContent selectedDay={selectedDay} onMarkComplete={handleMarkComplete} completedDays={completedDays} onOpenVideo={() => setVideoOpen(true)} onOpenQuiz={() => openQuiz(selectedDay)} />
         </div>
       </div>
 
@@ -456,6 +475,35 @@ function Daywise() {
               >
                 <track kind="captions" />
               </video>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {quizOpen && quizForDay && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+          <div className="w-full max-w-3xl bg-white rounded-lg overflow-hidden">
+            <div className="p-4 flex justify-between items-center border-b">
+              <h3 className="text-lg font-semibold">Quiz — Day {quizForDay.day}</h3>
+              <button onClick={closeQuiz} className="text-gray-600 px-2 py-1">Close</button>
+            </div>
+            <div className="p-6 space-y-4">
+              <p className="text-gray-700">This is a placeholder quiz for <strong>{quizForDay.title}</strong>. You can replace this with real quiz questions and scoring.</p>
+
+              <div className="space-y-3">
+                <div>
+                  <div className="font-medium">1) What does DevOps primarily aim to improve?</div>
+                  <div className="mt-2 flex flex-col gap-2">
+                    <label className="inline-flex items-center"><input type="radio" name="q1" className="mr-2"/> Development speed</label>
+                    <label className="inline-flex items-center"><input type="radio" name="q1" className="mr-2"/> Collaboration & automation</label>
+                    <label className="inline-flex items-center"><input type="radio" name="q1" className="mr-2"/> Only testing</label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-end">
+                <button className="px-4 py-2 bg-yellow-400 text-black rounded-md font-semibold">Submit Answers</button>
+              </div>
             </div>
           </div>
         </div>

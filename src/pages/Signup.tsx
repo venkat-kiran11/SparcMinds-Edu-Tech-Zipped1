@@ -136,10 +136,10 @@ const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => 
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center px-6">
+    <div className="py-12 bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center px-6">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
-          <div className="flex items-center justify-center space-x-2 mb-8">
+        <div className="bg-white rounded-2xl shadow-2xl p-6">
+          <div className="flex items-center justify-center space-x-2 mb-6">
             <div className="">
               <img
                 src={Logo}
@@ -151,17 +151,17 @@ const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => 
             <span className="text-2xl font-bold text-slate-900">SPARCMINDS</span>
           </div>
 
-          <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">Create Account</h1>
-          <p className="text-gray-600 text-center mb-8">Join thousands of professionals</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2 text-center">Create Account</h1>
+          <p className="text-gray-600 text-center mb-6">Join thousands of professionals</p>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-3">
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-3">
               <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
               <p className="text-red-700 text-sm">{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-semibold text-gray-900 mb-2">Full Name</label>
               <div className="relative">
@@ -172,6 +172,20 @@ const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => 
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="John Doe"
                   required
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent outline-none"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-900 mb-2">Phone</label>
+              <div className="relative">
+                <Phone className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="e.g. +91 79974 86159"
                   className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-400 focus:border-transparent outline-none"
                 />
               </div>
@@ -265,7 +279,7 @@ const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => 
             <button
               type="submit"
               disabled={loading || !agreed}
-              className="w-full py-3 bg-amber-400 text-slate-900 font-semibold rounded-lg hover:bg-amber-500 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-2 bg-amber-400 text-slate-900 font-semibold rounded-lg hover:bg-amber-500 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Creating account...' : 'Create Account'}
             </button>

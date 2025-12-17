@@ -41,8 +41,8 @@ export default function ForgotPassword() {
 
           <div className="mt-4 p-4 bg-white rounded-lg shadow text-center">
             <div className="flex items-center justify-center mb-3">
-              <div className="bg-black rounded-full p-2">
-                <Mail className="w-5 h-5 text-amber-400" />
+              <div className="bg-amber-400 rounded-full p-2">
+                <Mail className="w-5 h-5 text-black" />
               </div>
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-1">Forgot Password?</h2>

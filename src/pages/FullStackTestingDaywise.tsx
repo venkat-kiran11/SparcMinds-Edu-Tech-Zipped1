@@ -436,9 +436,7 @@ function Daywise() {
               <span className="text-white font-bold text-[17px] tracking-wider">
                 Skillup.SPARCMINDS
               </span>
-              <span className="text-white text-[10px] opacity-80">
-                Building Trust & Careers
-              </span>
+             
             </div>
           </div>
         </div>

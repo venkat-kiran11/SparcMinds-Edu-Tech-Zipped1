@@ -178,6 +178,11 @@ export function Home() {
               <Link to="/courses" className="hover:text-amber-400">
                 Courses
               </Link>
+<Link to="/studentprofile" className="hover:text-amber-400">
+                studentprofile
+              </Link>
+
+               
 
               {/* About */}
               <div className="relative">
@@ -589,10 +594,18 @@ export function Home() {
 
             <div className="flex gap-4 mt-4">
               <FontAwesomeIcon icon={faInstagram} />
-              <FontAwesomeIcon icon={faYoutube} />
+              <a
+                href="https://youtube.com/@skillupsparcmindsedutech?si=jUFtNMRmpS064btF"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+              >
+                <FontAwesomeIcon icon={faYoutube} />
+              </a>
               <a
                 href="https://www.linkedin.com/company/sparcmindsedutech/"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <FontAwesomeIcon icon={faLinkedin} />
               </a>
