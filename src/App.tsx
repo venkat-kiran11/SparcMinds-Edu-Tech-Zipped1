@@ -11,12 +11,12 @@ import DevopsDayWise from './pages/DevopsDaywise';
 import FullStackTestingDaywise from './pages/FullStackTestingDaywise';
 import Courses from './pages/Courses';
 import About from './pages/About';
-import LearnMore from './pages/LearnMore';
+import LearnMoreDevops from './pages/LearnMoreDevops';
+import LearnMoreComputing from './pages/LearnMoreComputing';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions'; // If you have this
 import RequestCallback from './pages/RequestCallback';
 import ForgotPassword from './pages/ForgotPassword';
-import StudentProfile from './pages/StudentProfile';
 import StudentProfilePage from './pages/StudentProfilePage';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -49,7 +49,10 @@ function App() {
           <Route path='/about-us' element={<About/>}/>
           <Route path="/courses" element={<Courses/>} />
           <Route path="/studentprofile" element={<StudentProfilePage/>} />
-          <Route path="/learn-more" element={<LearnMore/>} />
+          
+          <Route path="/learn-more-devops" element={<LearnMoreDevops/>} />
+          <Route path="/learn-more-computing" element={<LearnMoreComputing/>} />
+
           <Route path="/request-callback" element={<RequestCallback/>} />
           <Route path="/devops-daywise" element={<DevopsDayWise/>} />
           <Route path="/fullstack-testing-daywise" element={<FullStackTestingDaywise/>} />

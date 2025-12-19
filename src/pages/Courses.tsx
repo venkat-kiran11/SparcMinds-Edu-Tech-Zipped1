@@ -22,120 +22,133 @@ interface Course {
   image: string;
   students?: number;
   isComingSoon?: boolean;
+  route?: string;   
 }
 const courses: Course[] = [
   {
     id: 1,
-    title: 'Java Full Stack Development',
-    instructor: 'Sarah Johnson',
-    duration: '2 - 3 Months',
+    title: "Java Full Stack Development",
+    instructor: "Sarah Johnson",
+    duration: "2 - 3 Months",
     students: 12450,
     originalPrice: 18000,
     discountPrice: 14999,
-    image: 'src/assets/java full stack.png'
+    image: "src/assets/java.png",
+    route: "/learn-more-java"
   },
   {
     id: 2,
-    title: 'Full Stack Testing',
-    instructor: 'Dr.Michael Chen',
-    duration: '2 - 3 Months',
+    title: "Full Stack Testing",
+    instructor: "Dr.Michael Chen",
+    duration: "2 - 3 Months",
     students: 8920,
     originalPrice: 15600,
     discountPrice: 12999,
-    image: '1GenerativeAi (2).png'
+    image: "generative ai (2).png",
+    // route: "/learn-more-testing"
+    route: "/fullstack-testing-daywise"
   },
   {
     id: 3,
-    title: 'DevOps with AWS',
-    instructor: 'Emma Williams',
-    duration: '2 - 3 Months',
+    title: "DevOps with AWS",
+    instructor: "Emma Williams",
+    duration: "2 - 3 Months",
     students: 15200,
     originalPrice: 16800,
     discountPrice: 13999,
-    image: 'src/assets/1devops with aws.png'
+    image: "src/assets/AWS.png",
+    route: "/learn-more-devops"
   },
   {
     id: 4,
-    title: 'Generative AI',
-    instructor: 'Emma Williams',
-    duration: '2 - 3 Months',
+    title: "Generative AI",
+    instructor: "Emma Williams",
+    duration: "2 - 3 Months",
     students: 15200,
     originalPrice: 14400,
     discountPrice: 11999,
-    image: 'src/assets/Aigenerative ai (1).png'
+    image: "src/assets/generative ai (2).png",
+    route: "/learn-more-generative-ai"
   },
   {
     id: 5,
-    title: 'Cyber Security',
-    instructor: 'Sarah Johnson',
-    duration: '2 - 3 Months',
+    title: "Cyber Security",
+    instructor: "Sarah Johnson",
+    duration: "2 - 3 Months",
     students: 12450,
     originalPrice: 19200,
     discountPrice: 15999,
-    image: 'src/assets/Cyber Security.png'
+    image: "src/assets/cyber security (2).png",
+    route: "/learn-more-cyber"
   },
   {
     id: 6,
-    title: 'Data Analytics',
-    instructor: 'Dr.Michael Chen',
-    duration: '2 - 3 Months',
+    title: "Data Analytics",
+    instructor: "Dr.Michael Chen",
+    duration: "2 - 3 Months",
     students: 8920,
     originalPrice: 18000,
     discountPrice: 14999,
-    image: 'src/assets/DataAnal.png'
+    image: "src/assets/Data Analytics (2).png",
+    route: "/learn-more-data-analytics"
   },
   {
     id: 7,
-    title: 'Web Development',
-    instructor: 'Emma Williams',
-    duration: '2 - 3 Months',
+    title: "Web Development",
+    instructor: "Emma Williams",
+    duration: "2 - 3 Months",
     students: 15200,
     originalPrice: 16800,
     discountPrice: 13999,
-    image: 'src/assets/web devolopment.png'
+    image: "src/assets/web dovelopment.png",
+    route: "/learn-more-web"
   },
   {
     id: 8,
-    title: 'Data Science',
-    instructor: 'Dr. Priya Rao',
-    duration: '3 - 4 Months',
+    title: "Data Science",
+    instructor: "Dr. Priya Rao",
+    duration: "3 - 4 Months",
     students: 5000,
     originalPrice: 22800,
     discountPrice: 18999,
-    image: 'https://via.placeholder.com/400x300?text=Data+Science'
+    image: "https://via.placeholder.com/400x300?text=Data+Science",
+    route: "/learn-more-data-science"
   },
   {
     id: 9,
-    title: 'Cloud Computing with AI',
-    instructor: 'Ravi Kumar',
-    duration: '2 - 3 Months',
+    title: "Cloud Computing with AI",
+    instructor: "Ravi Kumar",
+    duration: "2 - 3 Months",
     students: 3500,
     originalPrice: 19200,
     discountPrice: 15999,
-    image: 'https://via.placeholder.com/400x300?text=Cloud+Computing+with+AI'
+    image: "src/assets/Cloud computing.png",
+    route: "/learn-more-computing"
   },
   {
     id: 10,
-    title: 'Generative AI Advanced',
-    instructor: 'Dr. A I Expert',
-    duration: '2 - 3 Months',
+    title: "Generative AI Advanced",
+    instructor: "Dr. A I Expert",
+    duration: "2 - 3 Months",
     students: 4000,
     originalPrice: 15000,
     discountPrice: 11999,
-    image: 'src/assets/assets/GenerativeAi_Advanced.png'
+    image: "src/assets/assets/generative ai (2).png",
+    route: "/learn-more-gen-ai-advanced"
   },
   {
     id: 11,
-    title: 'Coming Soon',
-    instructor: 'AI Courses',
+    title: "Coming Soon",
+    instructor: "AI Courses",
     duration: 0,
     students: 0,
     originalPrice: 0,
     discountPrice: 0,
-    image: '',
+    image: "",
     isComingSoon: true
   }
 ];
+
 
 const whyChooseUs = [
   {
@@ -287,11 +300,18 @@ function Courses() {
                             ₹{course.discountPrice.toLocaleString()}
                           </span>
                         </div>
-                        <button 
-                          onClick={() => course.id === 1 ? navigate('/devops-daywise') : course.id === 3 ? navigate('/learn-more') : course.id === 2 ? navigate('/fullstack-testing-daywise') : null}
-                          className="bg-[#f9b817] text-black  px-3 py-2  rounded-lg font-semibold hover:bg-[#e0a615] transition">
-                          Learn More
-                        </button>
+                        <button
+  disabled={course.isComingSoon}
+  onClick={() => course.route && navigate(course.route)}
+  className={`px-3 py-2 rounded-lg font-semibold transition
+    ${course.isComingSoon
+      ? "bg-gray-500 cursor-not-allowed text-white"
+      : "bg-[#f9b817] text-black hover:bg-[#e0a615]"
+    }`}
+>
+  {course.isComingSoon ? "Coming Soon" : "Learn More"}
+</button>
+
                       </div>
                     </>
                   )}
@@ -575,7 +595,7 @@ function Courses() {
 
           <div className="text-center pt-8 border-t border-gray-700">
             <small className="text-gray-400">
-              ©2025 SPARCMINDS EDU-TECH, All rights reserved
+              ©2026 SPARCMINDS EDU-TECH, All rights reserved
             </small>
           </div>
         </div>

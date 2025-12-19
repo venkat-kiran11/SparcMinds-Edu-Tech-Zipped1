@@ -1,4 +1,3 @@
-// FULL CLEANED Home.tsx (Discover Section Removed + FAQ Redirect Added)
 
 import { useState, useEffect, useCallback } from "react";
 import {
@@ -210,6 +209,12 @@ export function Home() {
                       About Us
                     </button>
                     <button
+  onClick={() => handleAboutNavigation("vision")}
+  className="block w-full text-left px-4 py-2 hover:bg-slate-700 hover:text-amber-400 text-sm"
+>
+  Our Vision
+</button>
+                    <button
                       onClick={() => handleAboutNavigation("mission")}
                       className="block w-full text-left px-4 py-2 hover:bg-slate-700 hover:text-amber-400 text-sm"
                     >
@@ -320,6 +325,12 @@ export function Home() {
                   >
                     About Us
                   </button>
+                  <button
+  onClick={() => handleAboutNavigation("vision")}
+  className="block w-full text-left"
+>
+  Our Vision
+</button>
                   <button
                     onClick={() => handleAboutNavigation("mission")}
                     className="block w-full text-left"
@@ -513,64 +524,86 @@ export function Home() {
 
       {/* BRAND / STATS */}
       <section className="py-20 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
-        <div className="max-w-7xl container mx-auto px-6 grid md:grid-cols-2 gap-12">
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
+  <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+    {/* LEFT CONTENT */}
+    <motion.div
+      initial={{ opacity: 0, x: -10 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <h2 className="text-4xl font-bold mb-6">
+        Build Your Professional Brand
+      </h2>
+
+      <p className="text-xl text-gray-300 mb-8">
+        Create a powerful professional profile that showcases your expertise.
+      </p>
+
+      <ul className="space-y-4">
+        {[
+          "Add unlimited professional skills",
+          "Get verified skill endorsements",
+          "Earn exclusive achievement badges",
+          "Share your profile with recruiters",
+        ].map((text) => (
+          <li key={text} className="flex items-center gap-3">
+            <CheckCircle className="text-amber-400 w-5 h-5" />
+            <span>{text}</span>
+          </li>
+        ))}
+      </ul>
+
+      <button
+        onClick={goToSignup}
+        className="mt-8 px-8 py-4 bg-amber-400 text-slate-900 rounded-lg font-semibold hover:bg-amber-500 transition"
+      >
+        Get Started Free
+      </button>
+    </motion.div>
+
+    {/* RIGHT STATS CARD */}
+    <motion.div
+      initial={{ opacity: 0, x: 10 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-white/10 backdrop-blur-sm rounded-2xl p-10"
+    >
+      <div className="grid grid-cols-2 gap-10">
+
+        {[
+          { icon: <Clock size={28} />, label: "Access", value: "24/7" },
+          { icon: <Award size={28} />, label: "Skills", value: "Unlimited" },
+          { icon: <Users size={28} />, label: "Community", value: "50K+" },
+          { icon: <Star size={28} />, label: "Rating", value: "4.9" },
+        ].map(({ icon, label, value }) => (
+          <div
+            key={label}
+            className="flex flex-col items-center text-center space-y-2"
           >
-            <h2 className="text-4xl font-bold mb-6">
-              Build Your Professional Brand
-            </h2>
-
-            <p className="text-xl text-gray-300 mb-8">
-              Create a powerful professional profile that showcases your
-              expertise.
-            </p>
-
-            <ul className="space-y-4">
-              {[
-                "Add unlimited professional skills",
-                "Get verified skill endorsements",
-                "Earn exclusive achievement badges",
-                "Share your profile with recruiters",
-              ].map((text) => (
-                <li key={text} className="flex items-center space-x-3">
-                  <CheckCircle className="text-amber-400" />
-                  <span>{text}</span>
-                </li>
-              ))}
-            </ul>
-
-            <button
-              onClick={goToSignup}
-              className="mt-8 px-8 py-4 bg-amber-400 text-slate-900 rounded-lg font-semibold hover:bg-amber-500"
-            >
-              Get Started Free
-            </button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            className="bg-white/10 backdrop-blur-sm rounded-2xl p-8"
-          >
-            <div className="grid grid-cols-2 gap-6">
-              {[
-                { icon: <Clock />, label: "Access", value: "24/7" },
-                { icon: <Award />, label: "Skills", value: "Unlimited" },
-                { icon: <Users />, label: "Community", value: "50K+" },
-                { icon: <Star />, label: "Rating", value: "4.9" },
-              ].map(({ icon, label, value }) => (
-                <div key={label} className="text-center">
-                  <div className="text-amber-400 mx-auto mb-2">{icon}</div>
-                  <div className="text-3xl font-bold">{value}</div>
-                  <div className="text-gray-300">{label}</div>
-                </div>
-              ))}
+            {/* Icon */}
+            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-white/5 text-amber-400">
+              {icon}
             </div>
-          </motion.div>
-        </div>
-      </section>
+
+            {/* Value */}
+            <div className="text-3xl font-bold">
+              {value}
+            </div>
+
+            {/* Label */}
+            <div className="text-gray-400 text-sm">
+              {label}
+            </div>
+          </div>
+        ))}
+
+      </div>
+    </motion.div>
+
+  </div>
+</section>
+
 
       <section className="bg-white py-12 px-4">
         <div className="max-w-7xl mx-auto">
@@ -580,109 +613,114 @@ export function Home() {
 
       {/* FOOTER */}
       <footer className="bg-slate-900 text-white py-12">
-        <div className="max-w-7xl container mx-auto px-6 grid md:grid-cols-4 gap-12">
-          {/* Logo */}
-          <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <img src={Logo} className="h-10 w-10 rounded-lg" />
-              <span className="text-lg font-bold">SPARCMINDS</span>
-            </div>
+  <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
 
-            <p className="text-gray-400">
-              Professional skill development platform.
-            </p>
-
-            <div className="flex gap-4 mt-4">
-              <FontAwesomeIcon icon={faInstagram} />
-              <a
-                href="https://youtube.com/@skillupsparcmindsedutech?si=jUFtNMRmpS064btF"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="YouTube"
-              >
-                <FontAwesomeIcon icon={faYoutube} />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/sparcmindsedutech/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FontAwesomeIcon icon={faLinkedin} />
-              </a>
-              <FontAwesomeIcon icon={faTelegram} />
-            </div>
-          </div>
-
-          {/* Platform */}
-          <div>
-            <h4 className="font-bold mb-4">Platform</h4>
-            <ul className="text-gray-400 space-y-2">
-              <li>
-                <Link to="/courses" className="hover:text-amber-400">
-                  Courses
-                </Link>
-              </li>
-              <li>
-                <a
-                  href="https://sparcmindsmedia.blogspot.com/"
-                  target="_blank"
-                  className="hover:text-amber-400"
-                >
-                  Blog
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div>
-            <h4 className="font-bold mb-4">Support</h4>
-            <ul className="text-gray-400 space-y-2">
-              <li>
-                <a href="#" className="hover:text-amber-400">
-                  Help Center
-                </a>
-              </li>
-              <li>
-                <a href="tel:+917997486159" className="hover:text-amber-400">
-                  Contact Us
-                </a>
-              </li>
-
-              {/* UPDATED FAQ LINK */}
-              <li>
-                <button
-                  onClick={handleFooterFAQ}
-                  className="hover:text-amber-400 text-left w-full"
-                >
-                  FAQs
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div>
-            <h4 className="font-bold mb-4">Legal</h4>
-            <ul className="text-gray-400 space-y-2">
-              <li>
-                <Link to="/PrivacyPolicy" className="hover:text-amber-400">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link to="/TermsAndConditions" className="hover:text-amber-400">
-                  Terms of Service
-                </Link>
-              </li>
-            </ul>
-          </div>
+    {/* Logo + About */}
+    <div>
+      <div className="flex items-start gap-3 mb-4">
+        <img src={Logo} alt="Logo" className="w-14 h-14 rounded-lg" />
+        <div>
+          <h5 className="text-xl font-bold">Skillup.SPARCMINDS</h5>
+          <small className="text-sm text-gray-300">EDU-TECH</small>
         </div>
+      </div>
 
-        <div className="border-t border-gray-800 mt-10 pt-6 text-center text-gray-400 text-sm">
-          © 2024 SPARCMINDS. All rights reserved.
-        </div>
-      </footer>
+      <p className="text-gray-400 text-sm mb-4">
+        Our mission is to empower students across the Telugu states with
+        high-quality education in their regional language.
+      </p>
+
+      {/* <div className="flex gap-3">
+        <FontAwesomeIcon icon={faInstagram} size="2x" />
+        <FontAwesomeIcon icon={faYoutube} size="2x" />
+        <FontAwesomeIcon icon={faLinkedin} size="2x" />
+        <FontAwesomeIcon icon={faTelegram} size="2x" />
+      </div> */}
+      <div className="flex gap-3">
+  <a
+    // href=""
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Instagram"
+    className="hover:text-amber-400 transition"
+  >
+    <FontAwesomeIcon icon={faInstagram} size="2x" />
+  </a>
+
+  <a
+    href="https://www.youtube.com/@skillupsparcmindsedutech"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="YouTube"
+    className="hover:text-amber-400 transition"
+  >
+    <FontAwesomeIcon icon={faYoutube} size="2x" />
+  </a>
+
+  <a
+    href="https://www.linkedin.com/company/sparcmindsedutech/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="LinkedIn"
+    className="hover:text-amber-400 transition"
+  >
+    <FontAwesomeIcon icon={faLinkedin} size="2x" />
+  </a>
+
+  <a
+    // href=""
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Telegram"
+    className="hover:text-amber-400 transition"
+  >
+    <FontAwesomeIcon icon={faTelegram} size="2x" />
+  </a>
+</div>
+
+
+
+    </div>
+
+    {/* Platform */}
+    <div>
+      <h4 className="font-bold mb-4">Platform</h4>
+      <ul className="text-gray-400 space-y-2">
+        <li><Link to="/courses" className="hover:text-amber-400">Courses</Link></li>
+        <li><a href="https://sparcmindsmedia.blogspot.com/" target="_blank" className="hover:text-amber-400">Blog</a></li>
+      </ul>
+    </div>
+
+    {/* Support */}
+    <div>
+      <h4 className="font-bold mb-4">Support</h4>
+      <ul className="text-gray-400 space-y-2">
+        <li><a href="#" className="hover:text-amber-400">Help Center</a></li>
+        <li><a href="tel:+917997486159" className="hover:text-amber-400">Contact Us</a></li>
+        <li>
+          <button onClick={handleFooterFAQ} className="hover:text-amber-400">
+            FAQs
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    {/* Legal */}
+    <div>
+      <h4 className="font-bold mb-4">Legal</h4>
+      <ul className="text-gray-400 space-y-2">
+        <li><Link to="/PrivacyPolicy" className="hover:text-amber-400">Privacy Policy</Link></li>
+        <li><Link to="/TermsAndConditions" className="hover:text-amber-400">Terms of Service</Link></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div className="border-t border-gray-800 mt-10 pt-6 text-center text-gray-400 text-sm">
+    © 2026 SPARCMINDS. All rights reserved.
+  </div>
+</footer>
+
 
       {/* POPUP */}
       <RegisterPopup isOpen={showRegisterPopup} onClose={closeRegisterPopup} />

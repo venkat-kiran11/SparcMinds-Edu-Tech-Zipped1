@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Logo from '../assets/logo.jpg';
 import './About.css';
 
 const About = () => {
@@ -23,17 +22,9 @@ const About = () => {
     <>
       <div className="skillup-about">
         <nav className="nav-bar">
-
           <div className="nav-container">
-             <img
-                src={Logo}
-                alt="Sparcminds logo"
-                className="h-10 w-10 rounded-lg"
-              />
             <Link to="/" className="nav-brand">
-              <span className="text-white font-bold text-[18px] tracking-wider">
-                    Skillup.SPARCMINDS
-                  </span>
+              SKILLUP.SPARCMINDS
             </Link>
 
             <button className="nav-toggle" onClick={toggleMenu} aria-label="Toggle menu">
@@ -42,6 +33,7 @@ const About = () => {
 
             <div className={`nav-menu ${isMenuOpen ? 'nav-menu-open' : ''}`}>
               <a href="#about-us" onClick={(e) => { e.preventDefault(); scrollToSection('about-us'); }}>About Us</a>
+              <a href="#vision" onClick={(e) => { e.preventDefault(); scrollToSection('vision'); }}>Vision</a>
               <a href="#mission" onClick={(e) => { e.preventDefault(); scrollToSection('mission'); }}>Mission</a>
               <a href="#faqs" onClick={(e) => { e.preventDefault(); scrollToSection('faqs'); }}>FAQs</a>
               <Link to="/">Back to Home</Link>
@@ -82,7 +74,30 @@ const About = () => {
             </div>
           </div>
         </section>
+        <section id="vision" className="section section-dark">
+          <div className="container">
+            <h2 className="section-title">Our Vision</h2>
+            <p className="section-intro">At SparcMinds Academy, our vision is to emerge as a transformative EdTech platform that empowers students to unlock their true potential. We strive to:</p>
 
+            <div className="grid grid-4">
+              <div className="card">
+                <h3>Change students’ lives</h3>
+                <p>Change students’ lives by providing practical, high-impact learning that creates real opportunities</p>
+              </div>
+              <div className="card">
+                <h3>Make young people industry-ready</h3>
+                <p>Make young people industry-ready with future-focused skills, hands-on training, and real-world exposure</p>
+              </div>
+              <div className="card">
+                <h3>Enable successful careers for all</h3>
+                <p>Enable successful careers for all, regardless of background, location, or prior experience</p>
+              </div>
+            </div>
+
+            <div className="mission-statement">
+<p>We aim to bridge the gap between education and employment by combining quality mentorship, cutting-edge technology, and industry-aligned curricula. SparcMinds Academy aspires to be the next major milestone in skill development—shaping confident, skilled, and career-ready professionals for the global workforce.</p>            </div>
+          </div>
+        </section>
         <section id="mission" className="section section-dark">
           <div className="container">
             <h2 className="section-title">Our Mission</h2>
@@ -199,7 +214,7 @@ const About = () => {
         <div className="container">
           <div className="footer-content">
             <div className="footer-column">
-              <h5>SkillUp</h5>
+              <h5>SparcMinds SkillUp</h5>
               <p>Transforming students into industry-ready professionals.</p>
             </div>
 
@@ -207,6 +222,7 @@ const About = () => {
               <h5>Quick Links</h5>
               <ul>
                 <li><a href="#about-us">About Us</a></li>
+                <li><a href="#vision">Vision</a></li>
                 <li><a href="#mission">Mission</a></li>
                 <li><a href="#faqs">FAQs</a></li>
                 <li><Link to="/">Home</Link></li>
@@ -220,7 +236,7 @@ const About = () => {
           </div>
 
           <div className="footer-bottom">
-            <p>&copy; 2024 SkillUp by SparcMinds. All rights reserved.</p>
+            <p>&copy; 2026 SkillUp by SparcMinds. All rights reserved.</p>
             <div className="footer-links">
               <a href="#privacy">Privacy Policy</a>
               <span>|</span>
